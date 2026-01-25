@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { CountrySelector } from "@/components/CountrySelector";
 import { Dashboard } from "@/components/Dashboard";
-import { Country } from "@/data/countries";
+import { DbCountry } from "@/hooks/useData";
 
 const Index = () => {
-  const [selectedCountry, setSelectedCountry] = useState<Country | null>(null);
+  const [selectedCountry, setSelectedCountry] = useState<DbCountry | null>(null);
 
-  const handleSelectCountry = (country: Country) => {
+  const handleSelectCountry = (country: DbCountry) => {
     setSelectedCountry(country);
   };
 

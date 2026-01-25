@@ -1,13 +1,14 @@
-import { GraduationCap, AlertCircle } from "lucide-react";
+import { GraduationCap, AlertCircle, Loader2 } from "lucide-react";
 import { ExamCard } from "./ExamCard";
-import { Exam } from "@/data/sampleData";
+import { DbExam } from "@/hooks/useData";
 
 interface ExamsSectionProps {
-  exams: Exam[];
+  exams: DbExam[];
   countryName: string;
+  loading?: boolean;
 }
 
-export const ExamsSection = ({ exams, countryName }: ExamsSectionProps) => {
+export const ExamsSection = ({ exams, countryName, loading }: ExamsSectionProps) => {
   return (
     <section className="mb-8 sm:mb-10">
       <div className="flex items-center justify-between mb-4">
@@ -17,7 +18,11 @@ export const ExamsSection = ({ exams, countryName }: ExamsSectionProps) => {
         </h2>
       </div>
 
-      {exams.length > 0 ? (
+      {loading ? (
+        <div className="flex items-center justify-center py-12">
+          <Loader2 className="w-6 h-6 animate-spin text-primary" />
+        </div>
+      ) : exams.length > 0 ? (
         <>
           <div className="space-y-3 sm:space-y-4">
             {exams.map((exam) => (

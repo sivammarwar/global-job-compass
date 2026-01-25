@@ -1,13 +1,14 @@
-import { Briefcase, AlertCircle } from "lucide-react";
+import { Briefcase, AlertCircle, Loader2 } from "lucide-react";
 import { JobCard } from "./JobCard";
-import { Job } from "@/data/sampleData";
+import { DbJob } from "@/hooks/useData";
 
 interface JobsSectionProps {
-  jobs: Job[];
+  jobs: DbJob[];
   countryName: string;
+  loading?: boolean;
 }
 
-export const JobsSection = ({ jobs, countryName }: JobsSectionProps) => {
+export const JobsSection = ({ jobs, countryName, loading }: JobsSectionProps) => {
   return (
     <section className="mb-8 sm:mb-10">
       <div className="flex items-center justify-between mb-4">
@@ -17,7 +18,11 @@ export const JobsSection = ({ jobs, countryName }: JobsSectionProps) => {
         </h2>
       </div>
 
-      {jobs.length > 0 ? (
+      {loading ? (
+        <div className="flex items-center justify-center py-12">
+          <Loader2 className="w-6 h-6 animate-spin text-primary" />
+        </div>
+      ) : jobs.length > 0 ? (
         <>
           <div className="space-y-3 sm:space-y-4">
             {jobs.map((job) => (
