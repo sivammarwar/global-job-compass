@@ -1,8 +1,8 @@
 import { ExternalLink, Calendar, Building2, FileText, Award, BookOpen } from "lucide-react";
-import { Exam } from "@/data/sampleData";
+import { DbExam } from "@/hooks/useData";
 
 interface ExamCardProps {
-  exam: Exam;
+  exam: DbExam;
 }
 
 export const ExamCard = ({ exam }: ExamCardProps) => {
@@ -11,25 +11,27 @@ export const ExamCard = ({ exam }: ExamCardProps) => {
       <div className="flex flex-col gap-3">
         <div>
           <h3 className="font-semibold text-foreground text-base sm:text-lg mb-1">
-            {exam.name}
+            {exam.exam_name}
           </h3>
           <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 text-sm text-muted-foreground">
             <div className="flex items-center gap-1.5">
               <Building2 className="w-4 h-4 flex-shrink-0" />
-              <span className="truncate">{exam.conductingBody}</span>
+              <span className="truncate">{exam.conducting_body}</span>
             </div>
-            <div className="flex items-center gap-1.5">
-              <Calendar className="w-4 h-4 flex-shrink-0" />
-              <span>{exam.examDate}</span>
-            </div>
+            {exam.exam_date && (
+              <div className="flex items-center gap-1.5">
+                <Calendar className="w-4 h-4 flex-shrink-0" />
+                <span>{exam.exam_date}</span>
+              </div>
+            )}
           </div>
         </div>
 
         {/* Action Buttons */}
         <div className="flex flex-wrap gap-2">
-          {exam.admitCardLink ? (
+          {exam.admit_card_link ? (
             <a
-              href={exam.admitCardLink}
+              href={exam.admit_card_link}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-admit"
@@ -45,9 +47,9 @@ export const ExamCard = ({ exam }: ExamCardProps) => {
             </span>
           )}
 
-          {exam.resultLink ? (
+          {exam.result_link ? (
             <a
-              href={exam.resultLink}
+              href={exam.result_link}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-result"
@@ -63,9 +65,9 @@ export const ExamCard = ({ exam }: ExamCardProps) => {
             </span>
           )}
 
-          {exam.syllabusLink ? (
+          {exam.syllabus_link ? (
             <a
-              href={exam.syllabusLink}
+              href={exam.syllabus_link}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-syllabus"

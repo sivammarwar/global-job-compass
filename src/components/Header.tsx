@@ -1,8 +1,8 @@
 import { Globe, ChevronDown } from "lucide-react";
-import { Country } from "@/data/countries";
+import { DbCountry } from "@/hooks/useData";
 
 interface HeaderProps {
-  country: Country;
+  country: DbCountry;
   onChangeCountry: () => void;
 }
 
@@ -28,9 +28,9 @@ export const Header = ({ country, onChangeCountry }: HeaderProps) => {
             onClick={onChangeCountry}
             className="flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2 bg-secondary rounded-lg hover:bg-secondary/80 transition-colors"
           >
-            <span className="text-xl sm:text-2xl">{country.flag}</span>
+            <span className="text-xl sm:text-2xl">{country.flag_emoji || "🏳️"}</span>
             <span className="font-medium text-foreground text-sm sm:text-base">
-              {country.name}
+              {country.country_name}
             </span>
             <ChevronDown className="w-4 h-4 text-muted-foreground" />
           </button>

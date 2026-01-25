@@ -14,16 +14,211 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      countries: {
+        Row: {
+          country_code: string
+          country_name: string
+          created_at: string
+          flag_emoji: string | null
+          id: string
+          is_active: boolean
+          updated_at: string
+        }
+        Insert: {
+          country_code: string
+          country_name: string
+          created_at?: string
+          flag_emoji?: string | null
+          id?: string
+          is_active?: boolean
+          updated_at?: string
+        }
+        Update: {
+          country_code?: string
+          country_name?: string
+          created_at?: string
+          flag_emoji?: string | null
+          id?: string
+          is_active?: boolean
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      exam_listings: {
+        Row: {
+          admit_card_link: string | null
+          conducting_body: string
+          country_id: string
+          created_at: string
+          exam_date: string | null
+          exam_name: string
+          id: string
+          is_active: boolean
+          notification_date: string | null
+          official_website: string | null
+          result_link: string | null
+          syllabus_link: string | null
+          updated_at: string
+        }
+        Insert: {
+          admit_card_link?: string | null
+          conducting_body: string
+          country_id: string
+          created_at?: string
+          exam_date?: string | null
+          exam_name: string
+          id?: string
+          is_active?: boolean
+          notification_date?: string | null
+          official_website?: string | null
+          result_link?: string | null
+          syllabus_link?: string | null
+          updated_at?: string
+        }
+        Update: {
+          admit_card_link?: string | null
+          conducting_body?: string
+          country_id?: string
+          created_at?: string
+          exam_date?: string | null
+          exam_name?: string
+          id?: string
+          is_active?: boolean
+          notification_date?: string | null
+          official_website?: string | null
+          result_link?: string | null
+          syllabus_link?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "exam_listings_country_id_fkey"
+            columns: ["country_id"]
+            isOneToOne: false
+            referencedRelation: "countries"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      job_listings: {
+        Row: {
+          application_deadline: string | null
+          category: string | null
+          country_id: string
+          created_at: string
+          department_name: string
+          id: string
+          is_active: boolean
+          job_description: string | null
+          job_title: string
+          official_link: string
+          posted_date: string
+          qualifications: string | null
+          updated_at: string
+        }
+        Insert: {
+          application_deadline?: string | null
+          category?: string | null
+          country_id: string
+          created_at?: string
+          department_name: string
+          id?: string
+          is_active?: boolean
+          job_description?: string | null
+          job_title: string
+          official_link: string
+          posted_date?: string
+          qualifications?: string | null
+          updated_at?: string
+        }
+        Update: {
+          application_deadline?: string | null
+          category?: string | null
+          country_id?: string
+          created_at?: string
+          department_name?: string
+          id?: string
+          is_active?: boolean
+          job_description?: string | null
+          job_title?: string
+          official_link?: string
+          posted_date?: string
+          qualifications?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "job_listings_country_id_fkey"
+            columns: ["country_id"]
+            isOneToOne: false
+            referencedRelation: "countries"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          email: string | null
+          full_name: string | null
+          id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +345,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+    },
   },
 } as const
